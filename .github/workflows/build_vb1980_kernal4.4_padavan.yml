@@ -33,7 +33,7 @@ on:
         - NEWIFI
         - XY-C1
         - GHL
-        default: ZTE-E8820S
+        default: K2P
       branch:
         type: choice
         description: 'branch to compile'
