@@ -1,4 +1,4 @@
-name: Build vb1980's kernal4.4 Padavan
+name: Build AK201314's kernal4.4 Padavan
 
 on:
   workflow_dispatch:
@@ -40,7 +40,7 @@ on:
         options:
         - main
         - upgradelibs
-        default: upgradelibs
+        default: main
       plugins:
         description: 'json format string of include configs'
         required: true
@@ -48,7 +48,7 @@ on:
       rainbowui:
         type: boolean
         description: 'whether to apply rainbow ui'
-        default: 'true'
+        default: 'false'
       specializedlogo:
         type: boolean
         description: 'whether to apply specialized logo for e8820s or a-040w-q or msg1500'
