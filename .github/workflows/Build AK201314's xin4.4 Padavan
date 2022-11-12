@@ -48,7 +48,7 @@ on:
       rainbowui:
         type: boolean
         description: 'whether to apply rainbow ui'
-        default: 'true'
+        default: 'false'
       specializedlogo:
         type: boolean
         description: 'whether to apply specialized logo for e8820s or a-040w-q or msg1500'
@@ -66,7 +66,7 @@ on:
         description: 'whether to upload firmware to wetransfer'
         default: 'true'
 env:
-  REPOSITORY_URL: https://github.com/AK201314/padavan-4.4.git
+  REPOSITORY_URL: https://github.com/AK201314/padavan-xin4.4.git
   TOOLCHAIN_URL: https://github.com/hanwckf/padavan-toolchain/releases/download/linux-4.4-v1.0/mipsel-linux-uclibc.tar.xz
   WORK_PATH: /opt/padavan-4.4
   TIME_ZONE: Asia/Shanghai
