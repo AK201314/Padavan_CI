@@ -40,7 +40,7 @@ on:
         options:
         - main
         - upgradelibs
-        default: main
+        default: upgradelibs
       plugins:
         description: 'json format string of include configs'
         required: true
