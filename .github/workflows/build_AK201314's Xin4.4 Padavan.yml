@@ -40,7 +40,7 @@ on:
         options:
         - main
         - upgradelibs
-        default: upgradelibs
+        default: main
       plugins:
         description: 'json format string of include configs'
         required: true
@@ -52,7 +52,7 @@ on:
       specializedlogo:
         type: boolean
         description: 'whether to apply specialized logo for e8820s or a-040w-q or msg1500'
-        default: 'true'
+        default: 'false'
       changebrandlogo:
         type: boolean
         description: 'change brand logo image for specialized router'
@@ -253,7 +253,6 @@ jobs:
     - name: Build firmware
       run: |
         cd $WORK_PATH/trunk
-        sudo ./clear_tree
         sudo ./build_firmware_modify ${{ github.event.inputs.target }} 0
         echo "FIRMWARE_DATEPREFIX=$(date +"%Y%m%d")" >> $GITHUB_ENV
     - name: Organize firmware files
