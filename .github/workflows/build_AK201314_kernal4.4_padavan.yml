@@ -52,7 +52,7 @@ on:
       specializedlogo:
         type: boolean
         description: 'whether to apply specialized logo for e8820s or a-040w-q or msg1500'
-        default: 'true'
+        default: 'false'
       changebrandlogo:
         type: boolean
         description: 'change brand logo image for specialized router'
