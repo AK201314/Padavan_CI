@@ -253,7 +253,6 @@ jobs:
     - name: Build firmware
       run: |
         cd $WORK_PATH/trunk
-        echo "FIRMWARE_DATEPREFIX=$(date +"%Y%m%d")" >> $GITHUB_ENV
     - name: Organize firmware files
       id: organize
       run: |
