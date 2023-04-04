@@ -1,4 +1,4 @@
-name: Build AK201314's Xin4.4 Padavan
+name: Build tsl0922/padavan
 
 on:
   workflow_dispatch:
