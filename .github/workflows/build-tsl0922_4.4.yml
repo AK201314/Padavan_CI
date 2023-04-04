@@ -1,4 +1,4 @@
-name: Build tsl0922/padavan
+name: Build tsl0922_4.4 Padavan
 
 on:
   workflow_dispatch:
@@ -38,15 +38,18 @@ on:
         - E8820V2
         - MSG1500-Z
         - TX1801
-        default: K2P
+        - RE-CP-02
+        - SIM-AX1800T
+        - HAR-20S2U1
+        default: SIM-AX1800T
       plugins:
         description: 'json format string of include configs'
         required: true
-        default: '{"vpnsvr":"n","vpncli":"n","vpncmd":"n","ss":"y","v2ray":"y","xray":"n","trojan":"n","ssobfs":"n","dnsforwarder":"n","adbyby":"n","adguardhome":"n","smartdns":"n","aliddns":"n","zerotier":"n","ddnsto":"y","wireguard":"n","frpc":"n","aldriver":"n","sqm":"n","mentohust":"n","scutclient":"n","njitclient":"n","minieap":"n","dogcom":"n"}'
+        default: '{"vpnsvr":"n","vpncli":"n","vpncmd":"n","ss":"y","v2ray":"n","xray":"y","trojan":"y","ssobfs":"y","dnsforwarder":"n","adbyby":"n","adguardhome":"n","smartdns":"n","aliddns":"n","zerotier":"n","ddnsto":"n","wireguard":"n","frpc":"y","aldrive":"n","sqm":"y","mentohust":"n","scutclient":"n","njitclient":"n","minieap":"n","dogcom":"n"}'
       rainbowui:
         type: boolean
         description: 'whether to apply rainbow ui'
-        default: 'true'
+        default: 'false'
       specializedlogo:
         type: boolean
         description: 'whether to apply specialized logo for e8820s or a-040w-q'
@@ -58,17 +61,17 @@ on:
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: '20221314'
+        default: '20220224'
       uploadwet:
         type: boolean
         description: 'whether to upload firmware to wetransfer'
         default: 'true'
 env:
-  REPOSITORY_URL: https://github.com/monw/padavan.git
+  REPOSITORY_URL: https://github.com/vb1980/padavan-4.4.git
   WORK_PATH: /opt/padavan-4.4
   TIME_ZONE: Asia/Shanghai
   FIRMWARE_DATEPREFIX: $(date +"%Y%m%d")
-  FIRMWARE_AUTHOR: AK201314
+  FIRMWARE_AUTHOR: vb1980
   FIRMWARE_PATH: /opt/firmwares
 jobs:
   build:
@@ -157,7 +160,7 @@ jobs:
         echo "ddnsto=${{fromJson(github.event.inputs.plugins).ddnsto}}" >> $GITHUB_ENV
         echo "wireguard=${{fromJson(github.event.inputs.plugins).wireguard}}" >> $GITHUB_ENV
         echo "frpc=${{fromJson(github.event.inputs.plugins).frpc}}" >> $GITHUB_ENV
-        echo "aldriver=${{fromJson(github.event.inputs.plugins).aldriver}}" >> $GITHUB_ENV
+        echo "aldrive=${{fromJson(github.event.inputs.plugins).aldrive}}" >> $GITHUB_ENV
         echo "sqm=${{fromJson(github.event.inputs.plugins).sqm}}" >> $GITHUB_ENV
         echo "mentohust=${{fromJson(github.event.inputs.plugins).mentohust}}" >> $GITHUB_ENV
         echo "scutclient=${{fromJson(github.event.inputs.plugins).scutclient}}" >> $GITHUB_ENV
@@ -232,7 +235,7 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_FRPS=n" >> .config #frp server
         echo "CONFIG_FIRMWARE_INCLUDE_FRPC=${{env.frpc}}" >> .config #frp client
         #
-        echo "CONFIG_FIRMWARE_INCLUDE_ALDRIVER=${{env.aldriver}}" >> .config #阿里云盘
+        echo "CONFIG_FIRMWARE_INCLUDE_ALDRIVER=${{env.aldrive}}" >> .config #阿里云盘
         echo "CONFIG_FIRMWARE_INCLUDE_SQM=${{env.sqm}}" >> .config #QOS流控
         #
         #校园网相关开始
@@ -284,7 +287,7 @@ jobs:
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep -o -E "https?://[a-zA-Z0-9\.\/_&=@$%?~#-]*")"
         echo "WETRANSFER_URL=$(cat wetransfer.log | grep -o -E "https?://[a-zA-Z0-9\.\/_&=@$%?~#-]*")" >> $GITHUB_ENV
     - name: Remove obsolete firmwares on artifacts
-      uses: c-hive/gha-remove-artifacts@v1.2.0
+      uses: c-hive/gha-remove-artifacts@v1.3.0
       if: env.STATUS == 'success'
       with:
         age: '1 day'
